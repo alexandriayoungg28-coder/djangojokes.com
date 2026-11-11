@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Joke(models.Model):
     question = models.TextField(max_length=200)
@@ -8,3 +9,6 @@ class Joke(models.Model):
 
     def __str__(self):
         return self.question
+
+    def get_absolute_url(self):
+        return reverse('jokes:detail', args=[self.pk])
