@@ -13,11 +13,15 @@ class JokeCreateView(CreateView):
 
 class JokeDeleteView(DeleteView):
     model = Joke
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
     success_url = reverse_lazy('jokes:list')
 
 
 class JokeDetailView(DetailView):
     model = Joke
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
 
 
 class JokeListView(ListView):
@@ -27,3 +31,5 @@ class JokeListView(ListView):
 class JokeUpdateView(UpdateView):
     model = Joke
     fields = ['question', 'answer']
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
