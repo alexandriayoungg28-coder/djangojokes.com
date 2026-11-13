@@ -53,7 +53,9 @@ class JobApplicationForm(forms.Form):
         )
     )
     cover_letter = forms.CharField(
-        widget=forms.Textarea(attrs={'cols': '75', 'rows': '5'})
+        widget=forms.Textarea(
+            attrs={'class': 'form-control', 'rows': '5'}
+        )
     )
     confirmation = forms.BooleanField(
         label='I certify that the information I have provided is true.'
