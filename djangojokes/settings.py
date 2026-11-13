@@ -39,10 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     # Third-party
     'crispy_forms',
     'crispy_bootstrap5',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     #Local apps
     'common.apps.CommonConfig',
     'jokes.apps.JokesConfig',
@@ -51,6 +55,8 @@ INSTALLED_APPS = [
     'jobs.apps.JobsConfig',
    
 ]
+
+SITE_ID = 1
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
@@ -119,7 +125,24 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # AUTHENTICATION SETTINGS
 AUTH_USER_MODEL = 'users.CustomUser'
+LOGIN_URL = 'account_login'
+LOGIN_REDIRECT_URL = 'pages:homepage'
 
+# django-allauth settings
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
+ACCOUNT_USERNAME_REQUIRED = False
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
