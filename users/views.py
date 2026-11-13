@@ -17,5 +17,5 @@ class MyAccountPageView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
-class CustomPasswordChangeView(PasswordChangeView):
+class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     success_url = reverse_lazy('my-account')
