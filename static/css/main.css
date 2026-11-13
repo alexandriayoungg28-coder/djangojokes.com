@@ -13,3 +13,20 @@ header {
 h2 {
   font-style: italic;
 }
+
+/* FORM STYLES */
+label {
+  font-variant: small-caps;
+}
+
+#div_id_available_days fieldset > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+#div_id_available_days .form-check {
+  display: flex;
+  font-weight: normal;
+  margin: 0;
+}

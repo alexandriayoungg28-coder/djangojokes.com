@@ -1,6 +1,15 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from django import forms
+from django.core.exceptions import ValidationError
+
+
+def validate_future_date(value):
+    if value <= date.today():
+        raise ValidationError(
+            'Please enter a future date.',
+            code='past_date'
+        )
 
 
 class JobApplicationForm(forms.Form):
@@ -37,7 +46,10 @@ class JobApplicationForm(forms.Form):
         help_text='The earliest date you can start working.',
         widget=forms.SelectDateWidget(
             years=YEARS,
-        )
+            attrs={'style': 'width: 31%; display: inline-block; margin: 0 1%'}
+        ),
+        validators=[validate_future_date],
+        error_messages={'past_date': 'Please enter a future date.'}
     )
     available_days = forms.TypedMultipleChoiceField(
         choices=DAYS,
