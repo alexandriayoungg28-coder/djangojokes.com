@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
-        "allauth"
+        "allauth",
+        "messagedebug",
+        "messageerror",
+        "messageinfo",
+        "messagesuccess",
+        "messagewarning"
     ]
 }
