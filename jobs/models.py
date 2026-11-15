@@ -1,6 +1,6 @@
 import filetype
 from datetime import datetime
-from private_storage.fields import PrivateFileField
+from djangojokes.storage_backends import PrivateMediaStorage
 
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -69,8 +69,9 @@ class Applicant(models.Model):
         decimal_places=2
     )
     cover_letter = models.TextField()
-    resume = PrivateFileField(
+    resume = models.FileField(
         upload_to='resumes',
+        storage=PrivateMediaStorage(),
         blank=True,
         help_text='PDFs only',
         validators=[validate_pdf]
