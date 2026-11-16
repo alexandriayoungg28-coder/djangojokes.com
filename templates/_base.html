@@ -63,10 +63,11 @@
           </li>
         {% endif %}
       </ul>
-      <form class="row my-2 my-lg-0">
-        <input class="form-control me-sm-2 col" type="search"
-        placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 me-4 col" type="submit">
+      <form class="d-flex my-2 my-lg-0" action="{% url 'jokes:list' %}">
+        <input class="form-control me-sm-2" type="search"
+          placeholder="Search" aria-label="Search" name="q"
+          value="{{ request.GET.q }}">
+        <button class="btn btn-outline-success my-2 my-sm-0 me-4" type="submit">
           Search
         </button>
       </form>
@@ -104,3 +105,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>
+
