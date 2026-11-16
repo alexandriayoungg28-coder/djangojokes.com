@@ -4,6 +4,7 @@
         "allauth",
         "Cherryblossom",
         "djangojokes",
+        "jokevotes",
         "messagedebug",
         "messageerror",
         "messageinfo",
