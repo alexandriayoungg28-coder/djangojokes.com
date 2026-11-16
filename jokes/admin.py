@@ -1,39 +1,55 @@
 from django.contrib import admin
 
+from common.admin import DjangoJokesAdmin
 from .models import Category, Joke, Tag, JokeVote
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(DjangoJokesAdmin):
     model = Category
     list_display = ['category', 'created', 'updated']
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
             return ('slug', 'created', 'updated')
+        return ()
 
+
+@admin.register(Joke)
+class JokeAdmin(DjangoJokesAdmin):
+    model = Joke
+
+    # List Attributes
+    date_hierarchy = 'updated'
+    list_display = ['question', 'category', 'updated']
+    list_filter = ['updated', 'category', 'tags']
+    ordering = ['-updated']
+    search_fields = ['question', 'answer']
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # editing an existing object
+            return ('slug', 'created', 'updated')
         return ()
 
 
 @admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(DjangoJokesAdmin):
     model = Tag
     list_display = ['tag', 'created', 'updated']
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
             return ('slug', 'created', 'updated')
-
         return ()
 
 
 @admin.register(JokeVote)
-class JokeVoteAdmin(admin.ModelAdmin):
+class JokeVoteAdmin(DjangoJokesAdmin):
     model = JokeVote
     list_display = ['user', 'joke', 'vote']
 
     def get_readonly_fields(self, request, obj=None):
-        if obj: # editing an existing object
-            return ( 'created', 'updated')
-
+        if obj:
+            return ('created', 'updated')
         return ()
+
