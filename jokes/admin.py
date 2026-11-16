@@ -26,6 +26,10 @@ class JokeAdmin(DjangoJokesAdmin):
     ordering = ['-updated']
     search_fields = ['question', 'answer']
 
+    # Form Attributes
+    autocomplete_fields = ['tags', 'user']
+    radio_fields = {'category': admin.HORIZONTAL}
+
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
             return ('slug', 'created', 'updated')
@@ -36,6 +40,7 @@ class JokeAdmin(DjangoJokesAdmin):
 class TagAdmin(DjangoJokesAdmin):
     model = Tag
     list_display = ['tag', 'created', 'updated']
+    search_fields = ['tag']
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
