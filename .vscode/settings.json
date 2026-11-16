@@ -4,6 +4,8 @@
         "allauth",
         "Cherryblossom",
         "djangojokes",
+        "endfor",
+        "endwith",
         "jokevotes",
         "messagedebug",
         "messageerror",
@@ -11,6 +13,7 @@
         "messagesuccess",
         "messagewarning",
         "socialaccount",
+        "widthratio",
         "ylgu"
     ]
 }

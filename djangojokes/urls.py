@@ -20,7 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     # Admin
     path('admin/doc/', include('django.contrib.admindocs.urls')),
@@ -30,12 +29,16 @@ urlpatterns = [
     path('account/', include('users.urls')),
     path('account/', include('allauth.urls')),
 
-    
-
     # Local Apps
     path('jobs/', include('jobs.urls')),
     path('jokes/', include('jokes.urls')),
     path('', include('pages.urls')),
 ]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

@@ -30,6 +30,7 @@ label {
   font-weight: normal;
   margin: 0;
 }
+
 /* MESSAGE STYLES */
 .message {
   background-color: palegoldenrod;
@@ -40,6 +41,7 @@ label {
   background-color: slategray;
   color: white;
 }
+
 .messageinfo {
   background-color: azure;
   color: darkblue;
@@ -58,4 +60,18 @@ label {
 .messageerror {
   background-color: pink;
   color: darkred;
+}
+
+/* RATING BAR */
+#rating-container {
+  background-color: silver;
+  border-radius: .5em;
+  max-width: 5rem;
+  padding: 2px;
+}
+
+#rating {
+  background-color: gold;
+  border-radius: .5em;
+  height: 10px;
 }
