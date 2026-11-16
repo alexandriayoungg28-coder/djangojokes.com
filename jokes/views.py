@@ -12,6 +12,7 @@ from django.views.generic import (
 from .forms import JokeForm
 from .models import Joke, JokeVote
 
+
 class JokeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Joke
     form_class = JokeForm
@@ -31,6 +32,7 @@ class JokeDeleteView(UserPassesTestMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         result = super().delete(request, *args, **kwargs)
         return result
+
     def form_valid(self, form):
         messages.success(self.request, 'Joke deleted.')
         return super().form_valid(form)
@@ -44,6 +46,7 @@ class JokeDetailView(DetailView):
     model = Joke
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
+
 
 class JokeListView(ListView):
     model = Joke
@@ -98,7 +101,21 @@ class JokeListView(ListView):
             'default_key': 'updated'
         }
 
+    def get_queryset(self):
+        ordering = self.get_ordering()
+        qs = Joke.objects.all()
 
+        if 'slug' in self.kwargs: # Filter by category or tag
+            slug = self.kwargs['slug']
+            if '/category' in self.request.path_info:
+                qs = qs.filter(category__slug=slug)
+            if '/tag' in self.request.path_info:
+                qs = qs.filter(tags__slug=slug)
+        elif 'username' in self.kwargs: # Filter by joke creator
+            username = self.kwargs['username']
+            qs = qs.filter(user__username=username)
+
+        return qs.order_by(ordering)
 
 
 class JokeUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
@@ -111,6 +128,7 @@ class JokeUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         obj = self.get_object()
         return self.request.user == obj.user
+
 
 def vote(request, slug):
     user = request.user # The logged-in user (or AnonymousUser).
